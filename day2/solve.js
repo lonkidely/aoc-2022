@@ -1,9 +1,12 @@
 fs = require('fs');
+path = require('path');
 
-const inputFilePath = './input.txt';
+const txtPath = path.resolve(__dirname, 'txt');
+const inputFilePath = txtPath + '/input.txt';
+
 const data = fs.readFileSync(inputFilePath, 'utf-8');
 
-const countScoreShape = {
+const shapeScore = {
     'X': 1,
     'Y': 2,
     'Z': 3
@@ -21,7 +24,7 @@ const requiredShape = {
     "CZ": 'X'
 };
 
-const countScoreGame = {
+const roundScore = {
     "AX": 3,
     "AY": 6,
     "AZ": 0,
@@ -35,12 +38,12 @@ const countScoreGame = {
 
 
 function getScoreTaskPartOne(currentRound) {
-    return countScoreGame[currentRound[0] + currentRound[1]] + countScoreShape[currentRound[1]];
+    return roundScore[currentRound[0] + currentRound[1]] + shapeScore[currentRound[1]];
 }
 
 function getScoreTaskPartTwo(currentRound) {
     const reqShape = requiredShape[currentRound[0] + currentRound[1]];
-    return countScoreGame[currentRound[0] + reqShape] + countScoreShape[reqShape];
+    return roundScore[currentRound[0] + reqShape] + shapeScore[reqShape];
 }
 
 function solve(taskPart) {

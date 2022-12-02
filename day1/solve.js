@@ -1,6 +1,8 @@
-fs = require('fs')
+fs = require('fs');
+path = require('path');
 
-const inputFilePath = './input.txt';
+const txtPath = path.resolve(__dirname, 'txt');
+const inputFilePath = txtPath + '/input.txt';
 
 
 const caloriesArray = (function getCaloriesArray() {
