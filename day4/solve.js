@@ -25,12 +25,7 @@ const isIntersect = (str1, str2, checkIntersect) => {
 function solve(checkIntersection) {
     const rows = data.split('\n');
 
-    let result = 0;
-
-    rows.forEach(row => {
-        const pair = row.split(',');
-        result += isIntersect(pair[0], pair[1], checkIntersection);
-    });
+    const result = rows.reduce((acc, val) => acc + isIntersect(...val.split(','), checkIntersection), 0);
 
     console.log(result);
 }
