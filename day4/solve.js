@@ -22,13 +22,9 @@ const isIntersect = (str1, str2, checkIntersect) => {
     return checkIntersect(firstLeft, firstRight, secondLeft, secondRight);
 };
 
-function solve(checkIntersection) {
-    const rows = data.split('\n');
-
-    const result = rows.reduce((acc, val) => acc + isIntersect(...val.split(','), checkIntersection), 0);
-
-    console.log(result);
-}
+const solve = (checkIntersection) => console.log(
+    data.split('\n').reduce((acc, val) => acc + isIntersect(...val.split(','), checkIntersection), 0)
+);
 
 solve(intersectFullCheck);
 solve(intersectCheck);
