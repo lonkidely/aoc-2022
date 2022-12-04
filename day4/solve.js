@@ -7,7 +7,10 @@ const inputFilePath = txtPath + '/' + fileName + '.txt';
 
 const data = fs.readFileSync(inputFilePath, 'utf-8');
 
-const isFullIntersect = (str1, str2) => {
+const intersectFullCheck = (firstLeft, firstRight, secondLeft, secondRight) => (firstLeft <= secondLeft && secondRight <= firstRight) ? 1 : 0;
+const intersectCheck = (firstLeft, firstRight, secondLeft, secondRight) => (firstLeft <= secondLeft && secondLeft <= firstRight) ? 1 : 0;
+
+const isIntersect = (str1, str2, checkIntersect) => {
     let [firstLeft, firstRight] = str1.split('-').map(elem => parseInt(elem));
     let [secondLeft, secondRight] = str2.split('-').map(elem => parseInt(elem));
 
@@ -16,46 +19,21 @@ const isFullIntersect = (str1, str2) => {
         [firstRight, secondRight] = [secondRight, firstRight];
     }
 
-    return (firstLeft <= secondLeft && secondRight <= firstRight) ? 1 : 0;
+    return checkIntersect(firstLeft, firstRight, secondLeft, secondRight);
 };
 
-const isIntersect = (str1, str2) => {
-    let [firstLeft, firstRight] = str1.split('-').map(elem => parseInt(elem));
-    let [secondLeft, secondRight] = str2.split('-').map(elem => parseInt(elem));
-
-    if (firstLeft > secondLeft || (firstLeft === secondLeft && firstRight < secondRight)) {
-        [firstLeft, secondLeft] = [secondLeft, firstLeft];
-        [firstRight, secondRight] = [secondRight, firstRight];
-    }
-
-    return (firstLeft <= secondLeft && secondLeft <= firstRight) ? 1 : 0;
-};
-
-function solvePartOne() {
+function solve(checkIntersection) {
     const rows = data.split('\n');
 
     let result = 0;
 
     rows.forEach(row => {
         const pair = row.split(',');
-        result += isFullIntersect(pair[0], pair[1]);
+        result += isIntersect(pair[0], pair[1], checkIntersection);
     });
 
     console.log(result);
 }
 
-function solvePartTwo() {
-    const rows = data.split('\n');
-
-    let result = 0;
-
-    rows.forEach(row => {
-        const pair = row.split(',');
-        result += isIntersect(pair[0], pair[1]);
-    });
-
-    console.log(result);
-}
-
-solvePartOne();
-solvePartTwo();
+solve(intersectFullCheck);
+solve(intersectCheck);
