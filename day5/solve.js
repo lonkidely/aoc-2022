@@ -10,7 +10,7 @@ const data = fs.readFileSync(inputFilePath, 'utf-8');
 const alphabet = Array.from(Array(26)).map((elem, index) => index + 65).map(el => String.fromCharCode(el));
 
 const solvePartOne = () => {
-    const [containers, operations] = data.split('\n\n');
+    [containers, operations] = data.split('\n\n');
 
     const rows = containers.split('\n');
 
@@ -38,7 +38,7 @@ const solvePartOne = () => {
 solvePartOne();
 
 const solvePartTwo = () => {
-    const [containers, operations] = data.split('\n\n');
+    [containers, operations] = data.split('\n\n');
 
     const rows = containers.split('\n');
 
