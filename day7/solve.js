@@ -54,8 +54,6 @@ const dfs = (vertex) => {
     });
 }
 
-const MaxSizeOfFile = 100000;
-
 const prepare = () => {
     const allRows = data.split('\n');
     const rows = allRows.slice(1, allRows.length);
@@ -88,6 +86,8 @@ const prepare = () => {
 
 prepare();
 
+const MaxSizeOfFile = 100000;
+
 const solvePartOne = () => {
     const result = Object.values(vertexSize).filter(val => val <= MaxSizeOfFile).reduce((acc, val) => acc += val, 0);
     console.log(result);
@@ -95,6 +95,7 @@ const solvePartOne = () => {
 
 const MaxSizeFileSystem = 70000000;
 const RequiredSpace = 30000000;
+
 const solvePartTwo = () => {
     const emptySpace = MaxSizeFileSystem - vertexSize['/'];
     const spaceRequired = RequiredSpace - emptySpace;
