@@ -25,11 +25,6 @@ const updateVertexSize = (v, size) => {
     vertexSize[v] += size;
 };
 
-const getLastVertexInPath = (path) => {
-    const result = path.substring(path.lastIndexOf("/") + 1, path.length);
-    return result === "" ? "/" : result;
-};
-
 const updatePath = (path, next) => {
     if (next === "..") {
         path = path.substring(0, path.lastIndexOf("/"));
@@ -69,8 +64,6 @@ const prepare = () => {
     rows.forEach((row, index) => {
         const splitData = row.split(' ');
         if (splitData[0] === "$") {
-            const lastVertex = getLastVertexInPath(currentPath);
-
             if (splitData[1] === "ls") {
                 let currentIndex = index + 1;
                 while (currentIndex < rows.length && rows[currentIndex][0] !== "$") {
