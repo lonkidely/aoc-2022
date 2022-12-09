@@ -73,3 +73,42 @@ const solvePartOne = () => {
 };
 
 solvePartOne();
+
+const solvePartTwo = () => {
+    const rows = data.split('\n').map(val => val.split(' '));
+
+    let ropeX = Array(10).fill(0);
+    let ropeY = Array(10).fill(0);
+
+    const last = 9;
+
+    set.clear();
+    insert(ropeX[last], ropeY[last]);
+
+    rows.forEach(row => {
+        [direction, count] = [row[0], parseInt(row[1])];
+
+        const dx = getDX(direction);
+        const dy = getDY(direction);
+
+        for (let i = 0; i < count; i++) {
+            ropeX[0] += dx;
+            ropeY[0] += dy;
+
+            for (let j = 1; j <= last; j++) {
+                const difX = ropeX[j - 1] - ropeX[j];
+                const difY = ropeY[j - 1] - ropeY[j];
+
+                if (Math.abs(difX) > 1 || Math.abs(difY) > 1) {
+                    ropeX[j] += Math.sign(difX);
+                    ropeY[j] += Math.sign(difY);
+                }
+            }
+            insert(ropeX[last], ropeY[last]);
+        }
+    });
+
+    console.log(set.size);
+};
+
+solvePartTwo();
