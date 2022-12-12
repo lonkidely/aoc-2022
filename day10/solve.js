@@ -41,3 +41,48 @@ const solvePartOne = () => {
 
 solvePartOne();
 
+const solvePartTwo = () => {
+    const rows = data.split('\n');
+
+    let currentCycle = 1;
+    let timesToAdd = {};
+    let result = Array(240).fill('.');
+
+    rows.forEach(row => {
+        if (row[0] === "a") {
+            currentCycle++;
+            [_, val] = row.split(' ');
+            timesToAdd[currentCycle + 1] = parseInt(val);
+        }
+        currentCycle++;
+    });
+
+    const checkDraw = (cycle, regValue) => {
+        cycle = (cycle - 1) % 40;
+        return (regValue - 1 <= cycle && cycle <= regValue + 1);
+    }
+
+    let regVal = 1;
+    for (let i = 1; i <= 240; i++) {
+        if (i in timesToAdd) {
+            regVal += timesToAdd[i];
+        }
+        if (checkDraw(i, regVal)) {
+            result[i - 1] = "#";
+        }
+
+    }
+
+    const printResult = () => {
+        for (let i = 0; i < 6; i++) {
+            for (let j = 1; j <= 40; ++j) {
+                process.stdout.write(result[i * 40 + j - 1]);
+            }
+            console.log();
+        }
+    }
+
+    printResult();
+};
+
+solvePartTwo();
